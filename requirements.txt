@@ -1,0 +1,39 @@
+# LangChain Core
+langchain
+langchain-core
+
+# Anthropic Integration
+# langchain-anthropic
+
+# Google Gemini (PaLM) Integration
+
+
+# Hugging Face Integration
+langchain-huggingface
+transformers
+huggingface-hub
+
+# Environment Variable Management
+python-dotenv
+
+# Machine Learning Utilities
+numpy
+scikit-learn
+
+# 🔹 Added: LangChain integrations & vector store support
+langchain-community
+langchain-chroma
+chromadb
+
+# 🔹 Added: Embedding models
+sentence-transformers
+
+# 🔹 Added: OpenAI LLM integration (for MultiQueryRetriever LLM)
+langchain-openai
+langchain_groq
+
+# 🔹 Added: Greenlet prebuilt wheel (avoid C++ build tools)
+greenlet==3.0.3
+
+streamlit
+torchvision
