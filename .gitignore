@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 .streamlit/
 langgraph-tutorials-main/
+parallel_with_local_LLM.ipynb

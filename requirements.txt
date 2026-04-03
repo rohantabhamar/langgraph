@@ -37,3 +37,4 @@ greenlet==3.0.3
 
 streamlit
 torchvision
+langgraph-checkpoint-sqlit
