@@ -42,8 +42,7 @@ START → chat_node → END
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/rohantabhamar/<your-repo-name>.git
-cd <your-repo-name>
+https://github.com/rohantabhamar/langgraph.git
 ```
 
 ### 2. Create and activate virtual environment
