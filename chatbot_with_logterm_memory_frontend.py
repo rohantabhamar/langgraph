@@ -1,6 +1,6 @@
 import streamlit as st
 from chatbot_with_logterm_memory_backend import chatbot, retrieve_all_threads
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage ,ToolMessage,AIMessageChunk
 import uuid
 
 # utility function
@@ -74,7 +74,12 @@ if user_input:
     with st.chat_message('user'):
         st.text(user_input)
 
-    CONFIG = {'configurable':{'thread_id': st.session_state['thread_id']}}
+    CONFIG = {'configurable':{'thread_id': st.session_state['thread_id']},
+              'metadata':{
+                  'thread_id':st.session_state['thread_id']
+              },
+              'run_name':'chat_turn',
+              }
     # response = chatbot.invoke({'messages': [HumanMessage(content=user_input)]},config = CONFIG)
     # ai_message = response['messages'][-1].content
     stream = chatbot.stream(
@@ -84,10 +89,24 @@ if user_input:
         )
 
     # add message to message history then chat
-    with st.chat_message('assistant'):
-        ai_message = st.write_stream(
-           message_chunk.content for message_chunk , metadeta in stream
-        )
+def ai_only_stream():
+    for message_chunk, metadata in chatbot.stream(
+        {'messages': [HumanMessage(content=user_input)]},
+        config=CONFIG,
+        stream_mode='messages'
+    ):
+        if (
+            isinstance(message_chunk, AIMessageChunk)
+            and message_chunk.content
+            and not message_chunk.tool_call_chunks 
+        ):
+            yield message_chunk.content
+
+        ai_message = st.write_stream(ai_only_stream())
 
         st.session_state['message_history'].append({'role':'assistant','content':ai_message})
+
   
+  # ai_message = st.write_stream(
+        #    message_chunk.content for message_chunk , metadeta in stream
+        # )
